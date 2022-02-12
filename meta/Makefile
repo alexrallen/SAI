@@ -97,8 +97,15 @@ toolsversions:
 
 CONSTHEADERS = saimetadatatypes.h saimetadatalogger.h saimetadatautils.h saiserialize.h
 
+DOXYGEN_VERSION_CHECK = $(shell echo -e "$$(doxygen -v)\n1.9.0" | sort -V | head -n1)
+ifeq (${DOXYGEN_VERSION_CHECK},1.9.0)
+	DOXYFILE = Doxyfile
+else
+	DOXYFILE = Doxyfile.compat
+endif
+
 xml: $(DEPS) Doxyfile $(CONSTHEADERS)
-	doxygen Doxyfile 2>&1 | perl -npe '$$e=1 if /warning/i; END{exit $$e}'
+	doxygen ${DOXYFILE} 2>&1 | perl -npe '$$e=1 if /warning/i; END{exit $$e}'
 	touch xml
 
 EXTRA = acronyms.txt aspell.en.pws *.pm *.cap
