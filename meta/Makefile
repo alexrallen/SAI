@@ -96,7 +96,7 @@ toolsversions:
 CONSTHEADERS = saimetadatatypes.h saimetadatalogger.h saimetadatautils.h saiserialize.h
 
 DOXYGEN_VERSION_CHECK = $(shell echo -e "$$(doxygen -v)\n1.8.16" | sort -V | head -n1)
-ifeq (${DOXYGEN_VERSION_CHECK},1.9.0)
+ifeq (${DOXYGEN_VERSION_CHECK},1.8.16)
 	DOXYFILE = Doxyfile
 else
 	DOXYFILE = Doxyfile.compat
